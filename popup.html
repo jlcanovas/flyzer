@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel = "stylesheet" type = "text/css" href = "popup.css" />
+    <script src="https://d3js.org/d3.v4.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Collaboration Graph</h1>
+    </div>
+
+    <div class="instructions">
+      <p>To calculate the collaboration graph, follow these steps:</p>
+      <p>
+        <ol>
+          <li>Go to the Forum of your Classroom.</li>
+          <li>Click on the folder you want to analyze (left panel).</li>
+          <li>Click on Extract Graph.</li>
+        </ol>
+      </p>
+      <div style="text-align: center;">
+        <button id="extractGraph">Extract Graph</button>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="nodesBox">
+        Nodes/Authors
+        <div class="value" id="nodes"></div>
+      </div>
+      <div class="edgesBox">
+        Edges/Interactions
+        <div class="value" id="edges"></div>
+      </div>
+      <div class="graph">
+        <div id="d3graph"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div id="message"></div>
+    <div>
+    <script src="popup.js"></script>
+  </body>
+</html>
