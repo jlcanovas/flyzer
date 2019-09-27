@@ -95,6 +95,9 @@ function showResults() {
   chrome.runtime.sendMessage({ type: "graph", nodes : nodes, edges : interactions});
 }
 
+isGithub = document.querySelectorAll(".repository-content");
+if(isGithub[0] == undefined) {
+
 // Main execution of the extractor
 // We first look for the message tree of the website
 panel = document.querySelectorAll("#msgs-tree");
@@ -131,4 +134,36 @@ if(panel == undefined || panel.length == 0) {
   }
 }
 
+} else {
+
+//
+// GITHUB TESTING
+//
+  issues = document.querySelectorAll(".js-issue-row");
+  nodes = [];
+
+  for(i = 0; i < issues.length; i++) {
+    issue = issues[i];
+    author = issue.querySelector(".opened-by").querySelector(".muted-link").innerHTML;
+
+    if(authors[author]) authors[author] = authors[author] + 1; 
+    else authors[author] = 1;                   
+
+    issue = "Issue " + issue.querySelector(".opened-by").innerHTML.trim().substring(1, 4).trim();
+    nodes.push({ "id" : issue, "name" : issue, "size" : 1, "color" : "#000078"});
+
+
+    interactions.push({                                         
+          source: author, target: issue,                
+          sourceName : author, targetName : issue });   
+  }
+
+  for(author in authors) {
+    nodes.push({ "id" : author, "name" : author, "size" : authors[author], "color" : "#73edff"});
+  }
+
+  // Sending the message
+  chrome.runtime.sendMessage({ type: "graph", nodes : nodes, edges : interactions});
+
+}
 

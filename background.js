@@ -10,6 +10,9 @@ chrome.runtime.onInstalled.addListener(function() {
             [
               new chrome.declarativeContent.PageStateMatcher({ 
                 pageUrl: { hostEquals: 'cv.uoc.edu'},
+              }),
+              new chrome.declarativeContent.PageStateMatcher({ 
+                pageUrl: { hostEquals: 'github.com'},
               })
             ],
           actions: [new chrome.declarativeContent.ShowPageAction()]
