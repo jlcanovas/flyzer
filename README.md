@@ -24,9 +24,11 @@ The following image shows an example of collaboration graph:
 ![Collaboration Graph example](https://github.com/jlcanovas/flyzer/blob/master/examples/exampleGraph.jpg?raw=true?raw=true "Collaboration Graph Example")
 
 # Participating
+You can see ideas I plan to work on in the [issues](https://github.com/jlcanovas/flyzer/issues)/[pull requests](https://github.com/jlcanovas/flyzer/pulls) of the project. Also, the [Planning project](https://github.com/jlcanovas/flyzer/projects/3) shows some prospective ideas (e.g., metrics, visualization, etc.).
+
 Any help is more than welcome. Even if you only want to say any comment about some kind of improvement, fell free to create an [issue]([https://github.com/jlcanovas/flyzer/issues](https://github.com/jlcanovas/flyzer/issues)) and I will give you an answer in less than 48 hours. 
 
-If you want to extend the tool (e.g., incorporate new metrics or visualizations) just fork the project and submit a [pull request]([https://github.com/jlcanovas/flyzer/pulls](https://github.com/jlcanovas/flyzer/pulls)). I can assure you that if you will make my day if you send me any kind of improvements via this :)
+If you want to extend the tool (e.g., incorporate new metrics or visualizations) just fork the project and submit a [pull request]([https://github.com/jlcanovas/flyzer/pulls](https://github.com/jlcanovas/flyzer/pulls)). I can assure you that you will make my day if you send me any kind of improvements via this method :)
 
 # License
 The tool is currently under [CC-BY-SA]([https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/))
