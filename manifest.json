@@ -1,7 +1,7 @@
 {
-  "name": "UOC Forum analyzer",
+  "name": "Flyzer - Forum analyzer",
   "version": "0.1",
-  "description": "Extract a collaboration graph from UOC Forum",
+  "description": "Extract a collaboration graph from Forums",
   "permissions": ["activeTab", "declarativeContent"],
   "background": {
     "scripts": ["background.js"],

@@ -9,7 +9,7 @@ chrome.runtime.onInstalled.addListener(function() {
           conditions: 
             [
               new chrome.declarativeContent.PageStateMatcher({ 
-                pageUrl: { hostEquals: 'cv.uoc.edu'},
+                pageUrl: { hostEquals: 'cv.uoc.edu'},  // Current support: UOC's forums
               })
             ],
           actions: [new chrome.declarativeContent.ShowPageAction()]
