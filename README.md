@@ -1,6 +1,6 @@
 
 # flyzer
-Welcome! This is the code for the _flyzer_ tool, a Google Chrome Plug-in to analyze forums. 
+Welcome! This is the code for the _flyzer_ tool, a Google Chrome extension to analyze forums. 
 
 ## Systems supported
 _flyzer_ currently support the analysis of the following forum systems:
