@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(
 // The graph is drawn in #d3graph div element of the plugin popup
 function drawGraph(nodes, edges) {
   // We first clean previous existing graph (if any)
-  d3.select("svg").remove;
+  d3.selectAll("svg").remove;
 
   // The margins. No need (yet) to make these values as global variables.
   var margin = {top: 10, right: 30, bottom: 30, left: 40},
