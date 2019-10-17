@@ -1,6 +1,12 @@
+/*
+  To remeber:
+  MaxWidth = 800;
+  MaxHeight = 600;
+*/
+
 body {
   margin: 0px;
-  min-width: 400px;
+  width: 800px;
 }    
 button {
   height: 30px;
@@ -44,7 +50,7 @@ button {
   text-align: center;
   background-color: #000078;
   color: white;
-  width: 181px;
+  width: 369px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;
@@ -57,7 +63,7 @@ button {
   text-align: center;
   background-color: #000078;
   color: white;
-  width: 182px;
+  width: 369px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;
@@ -68,7 +74,26 @@ button {
   margin-bottom: 10px;
   clear : both;
 }
+.results table {
+  border: 1px solid black;
+  width: 100%;
+}
+.results tbody {
+  display: block;
+  overflow: auto;
+  height: 60px;
+  width: 770px;
+}
+.results tbody tr:nth-child(even) {
+  background: #CCC
+}
+.results thead tr {
+  display: block;
+  background-color: #000078;
+  color: white;
+}
 .footer {
+  margin-top: 10px;
   background-color: #000078;
   color: white;
   height: 20px;

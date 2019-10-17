@@ -58,7 +58,7 @@ function drawGraph(nodes, edges) {
 
   // The margins. No need (yet) to make these values as global variables.
   var margin = {top: 10, right: 30, bottom: 30, left: 40},
-  width = 400 - margin.left - margin.right,
+  width = 778 - margin.left - margin.right,
   height = 300 - margin.top - margin.bottom;
 
   // Appending the svg object to the body of the page
@@ -138,9 +138,19 @@ function drawGraph(nodes, edges) {
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
     node
-         .attr("cx", d => d.x)
-         .attr("cy", d => d.y);
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
   }
+
+  // Updating the table
+  var tr = d3.select("#reportTable").select("tbody").selectAll("tr")
+    .data(data.nodes)
+    .enter().append("tr");
+
+  var col1 = tr.append("td").text(d => d.name).style("width", "550px");
+  var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
+  var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
+
 }
 
 
@@ -161,6 +171,9 @@ function drawGraph(nodes, edges) {
 //   { "source" : "B", "target" : "D"},
 //   { "source" : "C", "target" : "E"},
 // ];
+
+// document.querySelectorAll('.instructions')[0].style.display = 'none';
+// document.querySelectorAll('.results')[0].style.display = 'block';
 
 // drawGraph(nodes, edges);
 // document.getElementById('nodes').innerHTML = nodes.length;
