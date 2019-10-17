@@ -138,8 +138,8 @@ function drawGraph(nodes, edges) {
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
     node
-         .attr("cx", d => d.x)
-         .attr("cy", d => d.y);
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
   }
 
   // Updating the table
@@ -147,34 +147,34 @@ function drawGraph(nodes, edges) {
     .data(data.nodes)
     .enter().append("tr");
 
-  var col1 = tr.append("td").text(function(d) { return d.name; });
-  var col2 = tr.append("td").text(function(d) { return d.size; });
-  var col3 = tr.append("td").text(function(d) { return d.size; });
+  var col1 = tr.append("td").text(d => d.name).style("width", "550px");
+  var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
+  var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
 
 }
 
 
 // JUST FOR DEBUG
-nodes = [
-  { "id" : "A", "name" : "A", "size" : 2},
-  { "id" : "B", "name" : "B", "size" : 2},
-  { "id" : "C", "name" : "C", "size" : 3},
-  { "id" : "D", "name" : "D", "size" : 4},
-  { "id" : "E", "name" : "E", "size" : 2}
-];
+// nodes = [
+//   { "id" : "A", "name" : "A", "size" : 2},
+//   { "id" : "B", "name" : "B", "size" : 2},
+//   { "id" : "C", "name" : "C", "size" : 3},
+//   { "id" : "D", "name" : "D", "size" : 4},
+//   { "id" : "E", "name" : "E", "size" : 2}
+// ];
 
-edges = [
-  { "source" : "A", "target" : "B"},
-  { "source" : "A", "target" : "C"},
-  { "source" : "A", "target" : "D"},
-  { "source" : "A", "target" : "E"},
-  { "source" : "B", "target" : "D"},
-  { "source" : "C", "target" : "E"},
-];
+// edges = [
+//   { "source" : "A", "target" : "B"},
+//   { "source" : "A", "target" : "C"},
+//   { "source" : "A", "target" : "D"},
+//   { "source" : "A", "target" : "E"},
+//   { "source" : "B", "target" : "D"},
+//   { "source" : "C", "target" : "E"},
+// ];
 
-document.querySelectorAll('.instructions')[0].style.display = 'none';
-document.querySelectorAll('.results')[0].style.display = 'block';
+// document.querySelectorAll('.instructions')[0].style.display = 'none';
+// document.querySelectorAll('.results')[0].style.display = 'block';
 
-drawGraph(nodes, edges);
-document.getElementById('nodes').innerHTML = nodes.length;
-document.getElementById('edges').innerHTML = edges.length;
+// drawGraph(nodes, edges);
+// document.getElementById('nodes').innerHTML = nodes.length;
+// document.getElementById('edges').innerHTML = edges.length;

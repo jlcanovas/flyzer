@@ -1,6 +1,12 @@
+/*
+  To remeber:
+  MaxWidth = 800;
+  MaxHeight = 600;
+*/
+
 body {
   margin: 0px;
-  min-width: 800px;
+  width: 800px;
 }    
 button {
   height: 30px;
@@ -72,11 +78,19 @@ button {
   border: 1px solid black;
   width: 100%;
 }
-.results .report thead, tbody { display: block; }
-.results .report tbody {
-  height: 100px;    
-  overflow-y: auto;    /* Trigger vertical scroll    */
-  overflow-x: hidden;  /* Hide the horizontal scroll */
+.results tbody {
+  display: block;
+  overflow: auto;
+  height: 60px;
+  width: 770px;
+}
+.results tbody tr:nth-child(even) {
+  background: #CCC
+}
+.results thead tr {
+  display: block;
+  background-color: #000078;
+  color: white;
 }
 .footer {
   margin-top: 10px;
