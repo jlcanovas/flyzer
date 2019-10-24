@@ -140,6 +140,7 @@ function drawGraph(nodes, edges) {
     node
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+    generateSVG();
   }
 
   // Updating the table
@@ -157,14 +158,34 @@ function drawGraph(nodes, edges) {
   // var source = serializer.serializeToString(toExport);
   // document.getElementById('downloadLink').setAttribute('href', "data:image/svg+xml;"+source);
 
-  var svgData = document.getElementById("d3graph").querySelectorAll("svg")[0].outerHTML;
-  console.log(svgData);
-  var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
-  var svgUrl = URL.createObjectURL(svgBlob);
-  //document.getElementById('downloadLink').setAttribute('href', svgUrl)
-  document.getElementById('downloadLink').href = svgUrl
-  document.getElementById('downloadLink').download = "graph.svg"
+  // var svgData = document.getElementById("d3graph").querySelectorAll("svg")[0].outerHTML;
+  // console.log(svgData);
+  // var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
+  // var svgUrl = URL.createObjectURL(svgBlob);
+  // document.getElementById('downloadLink').href = svgUrl
+  //document.getElementById('downloadLink').download = "graph.svg"
 
+  // var svgEl = document.getElementById("d3graph").querySelectorAll("svg")[0]
+  // svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  // var svgData = svgEl.outerHTML;
+  // var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+  // var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+  // var svgUrl = URL.createObjectURL(svgBlob);
+  // var downloadLink = document.getElementById('downloadLink');
+  // downloadLink.href = svgUrl;
+  //downloadLink.download = "graph.svg";
+}
+
+function generateSVG() {
+  var svgEl = document.getElementById("d3graph").querySelectorAll("svg")[0]
+  svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  var svgData = svgEl.outerHTML;
+  var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+  var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+  var svgUrl = URL.createObjectURL(svgBlob);
+  var downloadLink = document.getElementById('downloadLink');
+  downloadLink.href = svgUrl;
+  //downloadLink.download = "graph.svg";
 }
 
 
