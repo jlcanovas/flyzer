@@ -44,13 +44,15 @@ button {
   font-size: 150%;
   font-weight: bold;
 }
-.results .nodesBox {
+.results .box {
   font-family: "Segoe UI", Tahoma, sans-serif;
   float : left;
   text-align: center;
   background-color: #000078;
   color: white;
-  width: 369px;
+}
+.results .nodesBox {
+  width: 300px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;
@@ -58,16 +60,23 @@ button {
   margin-right: 10px;
 }
 .results .edgesBox {
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  float : left;
-  text-align: center;
-  background-color: #000078;
-  color: white;
-  width: 369px;
+  width: 300px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;
-  margin-bottom: 10px;        
+  margin-bottom: 10px;   
+  margin-right: 10px;     
+}
+.results .utilBox {
+  width: 117px;
+  height: 40px;
+  padding: 7px;
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+.utilBox a {
+  text-decoration: none;
+  color: white;
 }
 .graph {
   border: 1px solid black;

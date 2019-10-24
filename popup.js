@@ -151,30 +151,44 @@ function drawGraph(nodes, edges) {
   var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
   var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
 
+  // Updating the link
+  // var toExport = document.getElementById("svg");
+  // var serializer = new XMLSerializer();
+  // var source = serializer.serializeToString(toExport);
+  // document.getElementById('downloadLink').setAttribute('href', "data:image/svg+xml;"+source);
+
+  var svgData = document.getElementById("d3graph").querySelectorAll("svg")[0].outerHTML;
+  console.log(svgData);
+  var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
+  var svgUrl = URL.createObjectURL(svgBlob);
+  //document.getElementById('downloadLink').setAttribute('href', svgUrl)
+  document.getElementById('downloadLink').href = svgUrl
+  document.getElementById('downloadLink').download = "graph.svg"
+
 }
 
 
 // JUST FOR DEBUG
-// nodes = [
-//   { "id" : "A", "name" : "A", "size" : 2},
-//   { "id" : "B", "name" : "B", "size" : 2},
-//   { "id" : "C", "name" : "C", "size" : 3},
-//   { "id" : "D", "name" : "D", "size" : 4},
-//   { "id" : "E", "name" : "E", "size" : 2}
-// ];
+nodes = [
+  { "id" : "A", "name" : "A", "size" : 2},
+  { "id" : "B", "name" : "B", "size" : 2},
+  { "id" : "C", "name" : "C", "size" : 3},
+  { "id" : "D", "name" : "D", "size" : 4},
+  { "id" : "E", "name" : "E", "size" : 2}
+];
 
-// edges = [
-//   { "source" : "A", "target" : "B"},
-//   { "source" : "A", "target" : "C"},
-//   { "source" : "A", "target" : "D"},
-//   { "source" : "A", "target" : "E"},
-//   { "source" : "B", "target" : "D"},
-//   { "source" : "C", "target" : "E"},
-// ];
+edges = [
+  { "source" : "A", "target" : "B"},
+  { "source" : "A", "target" : "C"},
+  { "source" : "A", "target" : "D"},
+  { "source" : "A", "target" : "E"},
+  { "source" : "B", "target" : "D"},
+  { "source" : "C", "target" : "E"},
+];
 
-// document.querySelectorAll('.instructions')[0].style.display = 'none';
-// document.querySelectorAll('.results')[0].style.display = 'block';
+document.querySelectorAll('.instructions')[0].style.display = 'none';
+document.querySelectorAll('.results')[0].style.display = 'block';
 
-// drawGraph(nodes, edges);
-// document.getElementById('nodes').innerHTML = nodes.length;
-// document.getElementById('edges').innerHTML = edges.length;
+drawGraph(nodes, edges);
+document.getElementById('nodes').innerHTML = nodes.length;
+document.getElementById('edges').innerHTML = edges.length;
