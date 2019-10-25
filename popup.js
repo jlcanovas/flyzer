@@ -181,26 +181,26 @@ function generateSVG() {
 
 
 // JUST FOR DEBUG
-nodes = [
-  { "id" : "A", "name" : "A", "size" : 2},
-  { "id" : "B", "name" : "B", "size" : 2},
-  { "id" : "C", "name" : "C", "size" : 3},
-  { "id" : "D", "name" : "D", "size" : 4},
-  { "id" : "E", "name" : "E", "size" : 2}
-];
+// nodes = [
+//   { "id" : "A", "name" : "A", "size" : 2},
+//   { "id" : "B", "name" : "B", "size" : 2},
+//   { "id" : "C", "name" : "C", "size" : 3},
+//   { "id" : "D", "name" : "D", "size" : 4},
+//   { "id" : "E", "name" : "E", "size" : 2}
+// ];
 
-edges = [
-  { "source" : "A", "target" : "B"},
-  { "source" : "A", "target" : "C"},
-  { "source" : "A", "target" : "D"},
-  { "source" : "A", "target" : "E"},
-  { "source" : "B", "target" : "D"},
-  { "source" : "C", "target" : "E"},
-];
+// edges = [
+//   { "source" : "A", "target" : "B"},
+//   { "source" : "A", "target" : "C"},
+//   { "source" : "A", "target" : "D"},
+//   { "source" : "A", "target" : "E"},
+//   { "source" : "B", "target" : "D"},
+//   { "source" : "C", "target" : "E"},
+// ];
 
-document.querySelectorAll('.instructions')[0].style.display = 'none';
-document.querySelectorAll('.results')[0].style.display = 'block';
+// document.querySelectorAll('.instructions')[0].style.display = 'none';
+// document.querySelectorAll('.results')[0].style.display = 'block';
 
-drawGraph(nodes, edges);
-document.getElementById('nodes').innerHTML = nodes.length;
-document.getElementById('edges').innerHTML = edges.length;
+// drawGraph(nodes, edges);
+// document.getElementById('nodes').innerHTML = nodes.length;
+// document.getElementById('edges').innerHTML = edges.length;
