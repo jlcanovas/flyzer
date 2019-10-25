@@ -191,23 +191,27 @@ function generateGEXF(data) {
     '\t<graph defaultedgetype="directed" mode="static">\r\n';
 
   console.log(data);
-  var nodes = '\t\t<nodes>';
+  var nodes = '\t\t<nodes>\r\n';
   data.nodes.forEach(function(elem) {
     var node = '\t\t\t<node id="' + elem.id + '" label="' + elem.name + '">\r\n' +
       '\t\t\t\t<viz:size value="' + elem.size + '"></viz:size>\r\n' +
-      '\t\t\t\t<viz:position x="' + elem.x + ' y="' + elem.y + '"></viz:position>\r\n' +
+      '\t\t\t\t<viz:position x="' + elem.x + '" y="' + elem.y + '"></viz:position>\r\n' +
       '\t\t\t\t<viz:color r="115" g="237" b="255"></viz:color>\r\n' +
       '\t\t\t</node>\r\n';
-    nodes += node + '\t\t</nodes>\r\n';
+    nodes += node;
   });
+  nodes += '\t\t</nodes>\r\n';
 
-  var edges = '\t\t<edges>';
-  data.edges.forEach(function(elem) {
-    var edges = '\t\t\t<edge id="' + elem.source.id + '-' + elem.target.id + '"" source="' + elem.source.id + '"" target="' + elem.target.id + '"">\r\n' +
+  var edges = '\t\t<edges>\r\n';
+  var counter = 0;
+  data.links.forEach(function(elem) {
+    var edge = '\t\t\t<edge id="' + counter++ + '" source="' + elem.source.id + '" target="' + elem.target.id + '">\r\n' +
       '\t\t\t\t<viz:color r="128" g="128" b="128"></viz:color>\r\n' +
       '\t\t\t</edge>\r\n';
-    edges += edge + '\t\t</edges>\r\n';
+    edges += edge;
   });
+  edges += '\t\t</edges>\r\n';
+  console.log(edges);
 
   var postface = '\t</graph>\r\n' +
     '</gexf>\r\n';
@@ -216,30 +220,30 @@ function generateGEXF(data) {
   var gexfUrl = URL.createObjectURL(gexfBlob);
   var downloadLinkGEXF = document.getElementById('downloadLinkGEXF');
   downloadLinkGEXF.href = gexfUrl;
-  downloadLinkGEXF.download = "graph.xml";
+  downloadLinkGEXF.download = "graph.gexf";
 }
 
 // JUST FOR DEBUG
-nodes = [
-  { "id" : "A", "name" : "A", "size" : 2},
-  { "id" : "B", "name" : "B", "size" : 2},
-  { "id" : "C", "name" : "C", "size" : 3},
-  { "id" : "D", "name" : "D", "size" : 4},
-  { "id" : "E", "name" : "E", "size" : 2}
-];
+// nodes = [
+//   { "id" : "A", "name" : "A", "size" : 2},
+//   { "id" : "B", "name" : "B", "size" : 2},
+//   { "id" : "C", "name" : "C", "size" : 3},
+//   { "id" : "D", "name" : "D", "size" : 4},
+//   { "id" : "E", "name" : "E", "size" : 2}
+// ];
 
-edges = [
-  { "source" : "A", "target" : "B"},
-  { "source" : "A", "target" : "C"},
-  { "source" : "A", "target" : "D"},
-  { "source" : "A", "target" : "E"},
-  { "source" : "B", "target" : "D"},
-  { "source" : "C", "target" : "E"},
-];
+// edges = [
+//   { "source" : "A", "target" : "B"},
+//   { "source" : "A", "target" : "C"},
+//   { "source" : "A", "target" : "D"},
+//   { "source" : "A", "target" : "E"},
+//   { "source" : "B", "target" : "D"},
+//   { "source" : "C", "target" : "E"},
+// ];
 
-document.querySelectorAll('.instructions')[0].style.display = 'none';
-document.querySelectorAll('.results')[0].style.display = 'block';
+// document.querySelectorAll('.instructions')[0].style.display = 'none';
+// document.querySelectorAll('.results')[0].style.display = 'block';
 
-drawGraph(nodes, edges);
-document.getElementById('nodes').innerHTML = nodes.length;
-document.getElementById('edges').innerHTML = edges.length;
+// drawGraph(nodes, edges);
+// document.getElementById('nodes').innerHTML = nodes.length;
+// document.getElementById('edges').innerHTML = edges.length;
