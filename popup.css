@@ -68,6 +68,7 @@ button {
   margin-right: 10px;     
 }
 .results .utilBox {
+  background-color: #CFCFCF;
   width: 117px;
   height: 40px;
   padding: 7px;
@@ -77,6 +78,7 @@ button {
 .utilBox a {
   text-decoration: none;
   color: white;
+  pointer-events: none;
 }
 .graph {
   border: 1px solid black;

@@ -108,7 +108,12 @@ function drawGraph(nodes, edges) {
       .style("fill", function(d) { if(d.color == undefined) return "#73edff"; else return d.color})
       .style("stroke", "#000078")
       .call(d3.drag()
-        .on("start", function(d) { if (!d3.event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on("start", function(d) { 
+          document.querySelectorAll(".utilBox")[0].style.backgroundColor = "#CFCFCF";
+          document.getElementById('downloadLink').style.pointerEvents = "none";
+          if (!d3.event.active) simulation.alphaTarget(0.3).restart(); 
+          d.fx = d.x; d.fy = d.y; 
+        })
         .on("drag",  function(d) { d.fx = d3.event.x; d.fy = d3.event.y; })
         .on("end",   function(d) { if (!d3.event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
 
@@ -128,7 +133,8 @@ function drawGraph(nodes, edges) {
       .force('collision', d3.forceCollide().radius(function(d) {         // Forcing nodes to collide (not overlap) but 
         return nodeSizeScale(d.size)+25                                  // at radius+25 distance :)
       }))
-      .on("tick", ticked);
+      .on("tick", ticked)
+      .on("end", ended)
 
   // Each iteration of the graph moves the nodes/links so we update them
   function ticked() {
@@ -140,6 +146,14 @@ function drawGraph(nodes, edges) {
     node
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+  }
+
+  // The force-directed ended, we generate the SVG
+  function ended() {
+    var utilBox = document.querySelectorAll(".utilBox")[0];
+    utilBox.style.backgroundColor = "#000078";
+    var downloadLink = document.getElementById('downloadLink');
+    downloadLink.style.pointerEvents = "auto";
     generateSVG();
   }
 
@@ -151,29 +165,6 @@ function drawGraph(nodes, edges) {
   var col1 = tr.append("td").text(d => d.name).style("width", "550px");
   var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
   var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
-
-  // Updating the link
-  // var toExport = document.getElementById("svg");
-  // var serializer = new XMLSerializer();
-  // var source = serializer.serializeToString(toExport);
-  // document.getElementById('downloadLink').setAttribute('href', "data:image/svg+xml;"+source);
-
-  // var svgData = document.getElementById("d3graph").querySelectorAll("svg")[0].outerHTML;
-  // console.log(svgData);
-  // var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
-  // var svgUrl = URL.createObjectURL(svgBlob);
-  // document.getElementById('downloadLink').href = svgUrl
-  //document.getElementById('downloadLink').download = "graph.svg"
-
-  // var svgEl = document.getElementById("d3graph").querySelectorAll("svg")[0]
-  // svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  // var svgData = svgEl.outerHTML;
-  // var preface = '<?xml version="1.0" standalone="no"?>\r\n';
-  // var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-  // var svgUrl = URL.createObjectURL(svgBlob);
-  // var downloadLink = document.getElementById('downloadLink');
-  // downloadLink.href = svgUrl;
-  //downloadLink.download = "graph.svg";
 }
 
 function generateSVG() {
@@ -185,7 +176,7 @@ function generateSVG() {
   var svgUrl = URL.createObjectURL(svgBlob);
   var downloadLink = document.getElementById('downloadLink');
   downloadLink.href = svgUrl;
-  //downloadLink.download = "graph.svg";
+  downloadLink.download = "graph.svg";
 }
 
 
