@@ -108,7 +108,13 @@ function drawGraph(nodes, edges) {
       .style("fill", function(d) { if(d.color == undefined) return "#73edff"; else return d.color})
       .style("stroke", "#000078")
       .call(d3.drag()
-        .on("start", function(d) { if (!d3.event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on("start", function(d) { 
+          document.querySelectorAll(".utilBox")[0].style.backgroundColor = "#CFCFCF";
+          document.getElementById('downloadLinkSVG').style.pointerEvents = "none";
+          document.getElementById('downloadLinkGEXF').style.pointerEvents = "none";
+          if (!d3.event.active) simulation.alphaTarget(0.3).restart(); 
+          d.fx = d.x; d.fy = d.y; 
+        })
         .on("drag",  function(d) { d.fx = d3.event.x; d.fy = d3.event.y; })
         .on("end",   function(d) { if (!d3.event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
 
@@ -128,7 +134,8 @@ function drawGraph(nodes, edges) {
       .force('collision', d3.forceCollide().radius(function(d) {         // Forcing nodes to collide (not overlap) but 
         return nodeSizeScale(d.size)+25                                  // at radius+25 distance :)
       }))
-      .on("tick", ticked);
+      .on("tick", ticked)
+      .on("end", ended)
 
   // Each iteration of the graph moves the nodes/links so we update them
   function ticked() {
@@ -142,6 +149,16 @@ function drawGraph(nodes, edges) {
         .attr("cy", d => d.y);
   }
 
+  // The force-directed ended, we generate the SVG
+  function ended() {
+    var utilBox = document.querySelectorAll(".utilBox")[0];
+    utilBox.style.backgroundColor = "#000078";
+    document.getElementById('downloadLinkSVG').style.pointerEvents = "auto";
+    generateSVG();
+    document.getElementById('downloadLinkGEXF').style.pointerEvents = "auto";
+    generateGEXF(data);
+  }
+
   // Updating the table
   var tr = d3.select("#reportTable").select("tbody").selectAll("tr")
     .data(data.nodes)
@@ -150,9 +167,61 @@ function drawGraph(nodes, edges) {
   var col1 = tr.append("td").text(d => d.name).style("width", "550px");
   var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
   var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
-
 }
 
+function generateSVG() {
+  var svgEl = document.getElementById("d3graph").querySelectorAll("svg")[0]
+  svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  var svgData = svgEl.outerHTML;
+  var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+  var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+  var svgUrl = URL.createObjectURL(svgBlob);
+  var downloadLinkSVG = document.getElementById('downloadLinkSVG');
+  downloadLinkSVG.href = svgUrl;
+  downloadLinkSVG.download = "graph.svg";
+}
+
+function generateGEXF(data) {
+  var preface = '<?xml version="1.0" encoding="UTF-8"?>\r\n' +
+    '<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">\r\n' +
+    '\t<meta lastmodifieddate="2019-10-25">\r\n' +
+    '\t\t<creator>Forum Analyzer</creator>\r\n' +
+    '\t<description></description>\r\n' +
+    '\t</meta>\r\n' +
+    '\t<graph defaultedgetype="directed" mode="static">\r\n';
+
+  console.log(data);
+  var nodes = '\t\t<nodes>\r\n';
+  data.nodes.forEach(function(elem) {
+    var node = '\t\t\t<node id="' + elem.id + '" label="' + elem.name + '">\r\n' +
+      '\t\t\t\t<viz:size value="' + elem.size + '"></viz:size>\r\n' +
+      '\t\t\t\t<viz:position x="' + elem.x + '" y="' + elem.y + '"></viz:position>\r\n' +
+      '\t\t\t\t<viz:color r="115" g="237" b="255"></viz:color>\r\n' +
+      '\t\t\t</node>\r\n';
+    nodes += node;
+  });
+  nodes += '\t\t</nodes>\r\n';
+
+  var edges = '\t\t<edges>\r\n';
+  var counter = 0;
+  data.links.forEach(function(elem) {
+    var edge = '\t\t\t<edge id="' + counter++ + '" source="' + elem.source.id + '" target="' + elem.target.id + '">\r\n' +
+      '\t\t\t\t<viz:color r="128" g="128" b="128"></viz:color>\r\n' +
+      '\t\t\t</edge>\r\n';
+    edges += edge;
+  });
+  edges += '\t\t</edges>\r\n';
+  console.log(edges);
+
+  var postface = '\t</graph>\r\n' +
+    '</gexf>\r\n';
+
+  var gexfBlob = new Blob([preface, nodes, edges, postface], {type:"application/xml;charset=utf-8"});
+  var gexfUrl = URL.createObjectURL(gexfBlob);
+  var downloadLinkGEXF = document.getElementById('downloadLinkGEXF');
+  downloadLinkGEXF.href = gexfUrl;
+  downloadLinkGEXF.download = "graph.gexf";
+}
 
 // JUST FOR DEBUG
 // nodes = [
