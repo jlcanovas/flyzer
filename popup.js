@@ -110,7 +110,8 @@ function drawGraph(nodes, edges) {
       .call(d3.drag()
         .on("start", function(d) { 
           document.querySelectorAll(".utilBox")[0].style.backgroundColor = "#CFCFCF";
-          document.getElementById('downloadLink').style.pointerEvents = "none";
+          document.getElementById('downloadLinkSVG').style.pointerEvents = "none";
+          document.getElementById('downloadLinkGEXF').style.pointerEvents = "none";
           if (!d3.event.active) simulation.alphaTarget(0.3).restart(); 
           d.fx = d.x; d.fy = d.y; 
         })
@@ -152,9 +153,10 @@ function drawGraph(nodes, edges) {
   function ended() {
     var utilBox = document.querySelectorAll(".utilBox")[0];
     utilBox.style.backgroundColor = "#000078";
-    var downloadLink = document.getElementById('downloadLink');
-    downloadLink.style.pointerEvents = "auto";
+    document.getElementById('downloadLinkSVG').style.pointerEvents = "auto";
     generateSVG();
+    document.getElementById('downloadLinkGEXF').style.pointerEvents = "auto";
+    generateGEXF(data);
   }
 
   // Updating the table
@@ -174,11 +176,48 @@ function generateSVG() {
   var preface = '<?xml version="1.0" standalone="no"?>\r\n';
   var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
   var svgUrl = URL.createObjectURL(svgBlob);
-  var downloadLink = document.getElementById('downloadLink');
-  downloadLink.href = svgUrl;
-  downloadLink.download = "graph.svg";
+  var downloadLinkSVG = document.getElementById('downloadLinkSVG');
+  downloadLinkSVG.href = svgUrl;
+  downloadLinkSVG.download = "graph.svg";
 }
 
+function generateGEXF(data) {
+  var preface = '<?xml version="1.0" encoding="UTF-8"?>\r\n' +
+    '<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">\r\n' +
+    '\t<meta lastmodifieddate="2019-10-25">\r\n' +
+    '\t\t<creator>Forum Analyzer</creator>\r\n' +
+    '\t<description></description>\r\n' +
+    '\t</meta>\r\n' +
+    '\t<graph defaultedgetype="directed" mode="static">\r\n';
+
+  console.log(data);
+  var nodes = '\t\t<nodes>';
+  data.nodes.forEach(function(elem) {
+    var node = '\t\t\t<node id="' + elem.id + '" label="' + elem.name + '">\r\n' +
+      '\t\t\t\t<viz:size value="' + elem.size + '"></viz:size>\r\n' +
+      '\t\t\t\t<viz:position x="' + elem.x + ' y="' + elem.y + '"></viz:position>\r\n' +
+      '\t\t\t\t<viz:color r="115" g="237" b="255"></viz:color>\r\n' +
+      '\t\t\t</node>\r\n';
+    nodes += node + '\t\t</nodes>\r\n';
+  });
+
+  var edges = '\t\t<edges>';
+  data.edges.forEach(function(elem) {
+    var edges = '\t\t\t<edge id="' + elem.source.id + '-' + elem.target.id + '"" source="' + elem.source.id + '"" target="' + elem.target.id + '"">\r\n' +
+      '\t\t\t\t<viz:color r="128" g="128" b="128"></viz:color>\r\n' +
+      '\t\t\t</edge>\r\n';
+    edges += edge + '\t\t</edges>\r\n';
+  });
+
+  var postface = '\t</graph>\r\n' +
+    '</gexf>\r\n';
+
+  var gexfBlob = new Blob([preface, nodes, edges, postface], {type:"application/xml;charset=utf-8"});
+  var gexfUrl = URL.createObjectURL(gexfBlob);
+  var downloadLinkGEXF = document.getElementById('downloadLinkGEXF');
+  downloadLinkGEXF.href = gexfUrl;
+  downloadLinkGEXF.download = "graph.xml";
+}
 
 // JUST FOR DEBUG
 nodes = [

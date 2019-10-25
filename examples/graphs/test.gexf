@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">
+  <meta lastmodifieddate="2019-10-25">
+    <creator>Gephi 0.9</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="directed" mode="static">
+    <nodes>
+      <node id="0" label="a">
+        <viz:size value="20.0"></viz:size>
+        <viz:position x="-1944.038" y="917.8482"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="1" label="b">
+        <viz:size value="10.0"></viz:size>
+        <viz:position x="-1583.4999" y="893.263"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="2" label="c">
+        <viz:size value="40.0"></viz:size>
+        <viz:position x="-1489.2683" y="397.46106"></viz:position>
+        <viz:color r="51" g="255" b="255"></viz:color>
+      </node>
+      <node id="3" label="d">
+        <viz:size value="10.0"></viz:size>
+        <viz:position x="-911.5879" y="569.55756"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="4" label="e">
+        <viz:size value="10.0"></viz:size>
+        <viz:position x="-157.73543" y="717.0689"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+      <node id="5" label="f">
+        <viz:size value="24.0"></viz:size>
+        <viz:position x="-1272.126" y="1048.9694"></viz:position>
+        <viz:color r="153" g="153" b="153"></viz:color>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="1" target="2">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+      <edge id="1" source="3" target="5" weight="2.0">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+      <edge id="2" source="1" target="4">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+      <edge id="3" source="4" target="3">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+      <edge id="4" source="3" target="0">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+      <edge id="5" source="0" target="5" weight="3.0">
+        <viz:color r="128" g="128" b="128"></viz:color>
+      </edge>
+    </edges>
+  </graph>
+</gexf>
