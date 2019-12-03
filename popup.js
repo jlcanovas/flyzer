@@ -190,7 +190,7 @@ function generateGEXF(data) {
     '\t</meta>\r\n' +
     '\t<graph defaultedgetype="directed" mode="static">\r\n';
 
-  console.log(data);
+  //console.log(data);
   var nodes = '\t\t<nodes>\r\n';
   data.nodes.forEach(function(elem) {
     var node = '\t\t\t<node id="' + elem.id + '" label="' + elem.name + '">\r\n' +
@@ -211,7 +211,7 @@ function generateGEXF(data) {
     edges += edge;
   });
   edges += '\t\t</edges>\r\n';
-  console.log(edges);
+  //console.log(edges);
 
   var postface = '\t</graph>\r\n' +
     '</gexf>\r\n';
