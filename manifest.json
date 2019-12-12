@@ -1,6 +1,6 @@
 {
   "name": "Flyzer - Forum analyzer",
-  "version": "0.1",
+  "version": "0.4",
   "description": "Extract a collaboration graph from Forums",
   "permissions": ["activeTab", "declarativeContent"],
   "background": {
