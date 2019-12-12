@@ -165,8 +165,8 @@ function drawGraph(nodes, edges) {
     .enter().append("tr");
 
   var col1 = tr.append("td").text(d => d.name).style("width", "550px");
-  var col2 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
-  var col3 = tr.append("td").text(d => d.size).style("width", "100px").style("text-align", "center");
+  var col2 = tr.append("td").text(d => d.outDegree).style("width", "100px").style("text-align", "center");
+  var col3 = tr.append("td").text(d => d.inDegree).style("width", "100px").style("text-align", "center");
 }
 
 function generateSVG() {

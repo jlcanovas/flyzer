@@ -8,9 +8,13 @@
 //
 
 // Main variables to keep the nodes (authors) and edges (interactions)
-// Authors are kept in a map where the key is the author's name (unique?) and the value 
-// is the number of message such author has sent to the forum
-authors = {};
+// Authors' messages are kept in a map where the key is the author's name (unique?) and the value 
+// is the number of messages such author has sent to the forum
+authorOutMessages = {};
+// Authors' responses (i.e., messages that are directed to the author) are kept in a map where 
+// the key is the author's name (unique?) and the value is the number of messages such author has 
+// received in the forum
+authorInMessages = {};
 // Interaction (edges or messages between authors) is an array which holds the objects for each
 // one (with source and target properties to comply with D3, see below)
 interactions = [];
@@ -25,6 +29,9 @@ function analyzeMessages(items) {
   for (i = 0; i < items.length; i++) {
     item = items[i];
 
+    // We get the name of the author (unique?)
+    author = item.querySelector(".msg-author").innerHTML;
+
     // Checking parent
     // We go up in the list of parents (the loop is done in a reverse way) to look forf the first
     // parent. If we find it, we create an interaction (i.e., edge)
@@ -37,17 +44,22 @@ function analyzeMessages(items) {
         interactions.push({                                          // Creating the edge
           source: parentName, target: childName,                     // These properties are compulsory for D3
           sourceName : parentName, targetName : childName });        // I keep this for me :)
+
+        // We keep track of the response from parentName to childName
+        if(authorInMessages[parentName])
+          authorInMessages[parentName] = authorInMessages[parentName] + 1; // Found before, we increase the number of times found
+        else 
+          authorInMessages[parentName] = 1;                             // First time found, we initialize with size 1 (i.e., 1 message)
         break;
       }
     }
 
-    // We get the message author name and check if we have found it before
-    author = item.querySelector(".msg-author").innerHTML;
-    if(authors[author]) {
-      authors[author] = authors[author] + 1; // Found before, we increase the number of times found
-    } else {
-      authors[author] = 1;                   // First time found, we initialize with size 1 (i.e., 1 message)
-    }
+    // We keep track of the message of the author in the forum
+    if(authorOutMessages[author]) 
+      authorOutMessages[author] = authorOutMessages[author] + 1;     // Found before, we increase the number of times found
+    else 
+      authorOutMessages[author] = 1;                                 // First time found, we initialize with size 1 (i.e., 1 message)
+    
     
     // Registering the node to check parents in the future
     possibleParents.push(item);
@@ -88,8 +100,8 @@ function showResults() {
   observer.disconnect();
   // Converting authors to D3 format
   nodes = [];
-  for(author in authors) {
-    nodes.push({ "id" : author, "name" : author, "size" : authors[author]});
+  for(author in authorOutMessages) {
+    nodes.push({ "id" : author, "name" : author, "size" : authorOutMessages[author], "inDegree" : authorInMessages[author], "outDegree" : authorOutMessages[author]});
   }
   // Sending the message
   chrome.runtime.sendMessage({ type: "graph", nodes : nodes, edges : interactions});
