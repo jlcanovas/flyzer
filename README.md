@@ -23,6 +23,9 @@ The following image shows an example of collaboration graph:
 
 ![Collaboration Graph example](https://github.com/jlcanovas/flyzer/blob/master/examples/exampleGraph.jpg?raw=true?raw=true "Collaboration Graph Example")
 
+# Installation & Usage
+You will find instructions for the [installation](https://github.com/jlcanovas/flyzer/wiki/Installation) and [usage](https://github.com/jlcanovas/flyzer/wiki/Basic-Usage) in our Wiki.
+
 # Participating
 You can see ideas I plan to work on in the [issues](https://github.com/jlcanovas/flyzer/issues)/[pull requests](https://github.com/jlcanovas/flyzer/pulls) of the project. Also, the [Planning project](https://github.com/jlcanovas/flyzer/projects/3) shows some prospective ideas (e.g., metrics, visualization, etc.).
 
