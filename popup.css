@@ -116,3 +116,12 @@ button {
   margin-right: 10px;
   margin-left: 10px;
 }
+.extra {
+  padding-right: 10px;
+  text-align: right;
+  visibility: hidden;
+}
+.extra a {
+  text-decoration: none;
+  color: white;
+}

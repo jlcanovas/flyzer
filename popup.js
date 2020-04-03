@@ -40,6 +40,11 @@ chrome.runtime.onMessage.addListener(
       // Filling extra information in the popup
       document.getElementById('nodes').innerHTML = request.nodes.length; // Number of nodes
       document.getElementById('edges').innerHTML = request.edges.length; // Number of edges
+
+      // Extra information
+      var extraElem = document.querySelectorAll(".extra")[0];
+      extraElem.style.visibility = "visible";
+      generateM1X11(request.nodes, request.edges);
     } else if (request.type == "message") {
       // MESSAGE: There is a message to show
       document.getElementById('message').innerHTML = request.message;
@@ -190,7 +195,7 @@ function generateGEXF(data) {
     '\t</meta>\r\n' +
     '\t<graph defaultedgetype="directed" mode="static">\r\n';
 
-  //console.log(data);
+  console.log(data);
   var nodes = '\t\t<nodes>\r\n';
   data.nodes.forEach(function(elem) {
     var node = '\t\t\t<node id="' + elem.id + '" label="' + elem.name + '">\r\n' +
@@ -223,13 +228,30 @@ function generateGEXF(data) {
   downloadLinkGEXF.download = "graph.gexf";
 }
 
+function generateM1X11(nodes, edges) {
+  var preface = 'id,name,size,indegree,outdegree,newContentThreshold,commentThreshold,participationThreshold\n';
+  var lines = ''
+  nodes.forEach(function(elem) {
+    var line = elem.id + ',' + elem.name + ',' + elem.size + ',' + elem.inDegree + ',' + elem.outDegree + ',' + 
+      ((elem.size >= 2) ? 'Y' : 'N') + ',' +       // Calculating new content threshold (the node has contributed 2 or more times)
+      ((elem.outDegree >= 1) ? 'Y' : 'N') + ',' +  // Calculating the comment threshold (the node hasn commented 1 or more times)
+      ((elem.size >= 4) ? 'Y' : 'N') + '\n';       // Calculating the participation threshold (the node has contributed more than 4 times)
+    lines += line;
+  });
+
+  var m1x11Blob = new Blob([preface, lines], {type:"text/csv;charset=utf-8"});
+  var m1x11Url = URL.createObjectURL(m1x11Blob);
+  downloadLinkM1X11.href = m1x11Url;
+  downloadLinkM1X11.download = "M1X11.csv";
+}
+
 // JUST FOR DEBUG
 // nodes = [
-//   { "id" : "A", "name" : "A", "size" : 2},
-//   { "id" : "B", "name" : "B", "size" : 2},
-//   { "id" : "C", "name" : "C", "size" : 3},
-//   { "id" : "D", "name" : "D", "size" : 4},
-//   { "id" : "E", "name" : "E", "size" : 2}
+//   { "id" : "A", "name" : "A", "size" : 2, "inDegree" : 0, "outDegree" : 4},
+//   { "id" : "B", "name" : "B", "size" : 2, "inDegree" : 1, "outDegree" : 1},
+//   { "id" : "C", "name" : "C", "size" : 3, "inDegree" : 1, "outDegree" : 1},
+//   { "id" : "D", "name" : "D", "size" : 4, "inDegree" : 2, "outDegree" : 0},
+//   { "id" : "E", "name" : "E", "size" : 2, "inDegree" : 2, "outDegree" : 0}
 // ];
 
 // edges = [
@@ -247,3 +269,7 @@ function generateGEXF(data) {
 // drawGraph(nodes, edges);
 // document.getElementById('nodes').innerHTML = nodes.length;
 // document.getElementById('edges').innerHTML = edges.length;
+
+// var extraElem = document.querySelectorAll(".extra")[0];
+// extraElem.style.visibility = "visible";
+// generateM1X11(nodes, edges);
