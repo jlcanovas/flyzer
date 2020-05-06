@@ -40,6 +40,11 @@ chrome.runtime.onMessage.addListener(
       // Filling extra information in the popup
       document.getElementById('nodes').innerHTML = request.nodes.length; // Number of nodes
       document.getElementById('edges').innerHTML = request.edges.length; // Number of edges
+
+      // Extra information
+      var extraElem = document.querySelectorAll(".extra")[0];
+      extraElem.style.visibility = "visible";
+      generatetimeDiff(request.nodes, request.edges);
     } else if (request.type == "message") {
       // MESSAGE: There is a message to show
       document.getElementById('message').innerHTML = request.message;
@@ -221,6 +226,22 @@ function generateGEXF(data) {
   var downloadLinkGEXF = document.getElementById('downloadLinkGEXF');
   downloadLinkGEXF.href = gexfUrl;
   downloadLinkGEXF.download = "graph.gexf";
+}
+
+function generatetimeDiff(nodes, edges) {
+  var preface = 'source-name,source-size,source-indegree,source-outdegree,target-name,target-size,target-indegree,target-outdegree,timeDiff\n';
+  var lines = ''
+  edges.forEach(function(elem) {
+    var line = elem.source.name.trim() + ',' + elem.source.size + ',' + elem.source.inDegree + ',' + elem.source.outDegree + ',' + 
+      elem.target.name.trim() + ',' + elem.target.size + ',' + elem.target.inDegree + ',' + elem.target.outDegree + ',' +
+      elem.timediff + '\n';      
+    lines += line;
+  });
+
+  var timeDiffBlob = new Blob([preface, lines], {type:"text/csv;charset=utf-8"});
+  var timeDiffUrl = URL.createObjectURL(timeDiffBlob);
+  downloadLinkTimeDiff.href = timeDiffUrl;
+  downloadLinkTimeDiff.download = "timeDiff.csv";
 }
 
 // JUST FOR DEBUG

@@ -50,12 +50,11 @@ function analyzeMessages(items) {
         );
 
         diff = timestampChild - timestampParent;                            // Timediff between timestamps
-        console.log(diff)
 
         interactions.push({                                                 // Creating the edge
-          source: parentName, target: childName,                            // These properties are compulsory for D3
+          source: childName, target: parentName,                            // These properties are compulsory for D3
           timediff: diff,
-          sourceName : parentName, targetName : childName                   // I keep this for me :)
+          sourceName : childName, targetName : parentName                   // I keep this for me :)
         });               
 
         // We keep track of the response from parentName to childName
