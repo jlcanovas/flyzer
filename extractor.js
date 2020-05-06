@@ -39,11 +39,24 @@ function analyzeMessages(items) {
       parent = possibleParents[j]
       if(parent.contains(item)) {
         //console.log(parent.querySelector(".msg-author").innerHTML + " -> " + item.querySelector(".msg-author").innerHTML);
-        parentName = parent.querySelector(".msg-author").innerHTML;  // The parent name
-        childName = item.querySelector(".msg-author").innerHTML      // The child name
-        interactions.push({                                          // Creating the edge
-          source: parentName, target: childName,                     // These properties are compulsory for D3
-          sourceName : parentName, targetName : childName });        // I keep this for me :)
+        parentName = parent.querySelector(".msg-author").innerHTML;         // The parent name
+        timestampParent = new Date(
+          parent.querySelector(".msg-info .date").getAttribute("datetime")  // The timestamp of the parent
+        );
+
+        childName = item.querySelector(".msg-author").innerHTML             // The child name
+        timestampChild = new Date(
+          item.querySelector(".msg-info .date").getAttribute("datetime")    // The timestamp of the child
+        );
+
+        diff = timestampChild - timestampParent;                            // Timediff between timestamps
+        console.log(diff)
+
+        interactions.push({                                                 // Creating the edge
+          source: parentName, target: childName,                            // These properties are compulsory for D3
+          timediff: diff,
+          sourceName : parentName, targetName : childName                   // I keep this for me :)
+        });               
 
         // We keep track of the response from parentName to childName
         if(authorInMessages[parentName])
