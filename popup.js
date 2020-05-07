@@ -40,6 +40,13 @@ chrome.runtime.onMessage.addListener(
       // Filling extra information in the popup
       document.getElementById('nodes').innerHTML = request.nodes.length; // Number of nodes
       document.getElementById('edges').innerHTML = request.edges.length; // Number of edges
+
+      // Allowing to access the analyze website
+      var analyzeBox = document.querySelector(".utilBox#analyze");
+      analyzeBox.style.backgroundColor = "#000078";
+      var analyzeLink = document.getElementById('analyzeLink');
+      analyzeLink.href = "analyze.html";
+      analyzeLink.style.pointerEvents="auto";
     } else if (request.type == "message") {
       // MESSAGE: There is a message to show
       document.getElementById('message').innerHTML = request.message;
@@ -151,7 +158,7 @@ function drawGraph(nodes, edges) {
 
   // The force-directed ended, we generate the SVG
   function ended() {
-    var utilBox = document.querySelectorAll(".utilBox")[0];
+    var utilBox = document.querySelector(".utilBox#download")
     utilBox.style.backgroundColor = "#000078";
     document.getElementById('downloadLinkSVG').style.pointerEvents = "auto";
     generateSVG();
