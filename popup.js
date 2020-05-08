@@ -45,7 +45,11 @@ chrome.runtime.onMessage.addListener(
       var analyzeBox = document.querySelector(".utilBox#analyze");
       analyzeBox.style.backgroundColor = "#000078";
       var analyzeLink = document.getElementById('analyzeLink');
-      analyzeLink.href = "analyze.html";
+      analyzeLink.onclick = function() {
+        chrome.tabs.create({url: "analyze.html"}, function(tab){
+          chrome.tabs.sendMessage(tab.id, {greeting: "hello"}, function(){});
+        });
+      }
       analyzeLink.style.pointerEvents="auto";
     } else if (request.type == "message") {
       // MESSAGE: There is a message to show
