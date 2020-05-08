@@ -104,7 +104,8 @@ function showResults() {
     nodes.push({ "id" : author, "name" : author, "size" : authorOutMessages[author], "inDegree" : authorInMessages[author], "outDegree" : authorOutMessages[author]});
   }
   // Sending the message
-  chrome.runtime.sendMessage({ type: "graph", nodes : nodes, edges : interactions});
+  //chrome.runtime.sendMessage({ type: "graph", nodes : nodes, edges : interactions});
+  chrome.runtime.sendMessage({ type: "store", nodes : nodes, edges : interactions});
 }
 
 // Main execution of the extractor

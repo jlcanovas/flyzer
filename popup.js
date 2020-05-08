@@ -22,11 +22,11 @@ extractGraph.onclick = function(element) {
 //   message : ""
 // } 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    //console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
-    //console.log(request);
+  function(message, sender, sendResponse) {
+    // console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    // console.log(message);
 
-    if(request.type == "graph") {
+    if(message.type == "graph") {
       // MESSAGE: A graph has been generated and has to be drawm
 
       // We first hide the instructions
@@ -35,23 +35,19 @@ chrome.runtime.onMessage.addListener(
       document.querySelectorAll('.results')[0].style.display = 'block'; 
 
       // Drawing the graph
-      drawGraph(request.nodes, request.edges);
+      drawGraph(message.graph.nodes, message.graph.edges);
 
       // Filling extra information in the popup
-      document.getElementById('nodes').innerHTML = request.nodes.length; // Number of nodes
-      document.getElementById('edges').innerHTML = request.edges.length; // Number of edges
+      document.getElementById('nodes').innerHTML = message.graph.nodes.length; // Number of nodes
+      document.getElementById('edges').innerHTML = message.graph.edges.length; // Number of edges
 
       // Allowing to access the analyze website
       var analyzeBox = document.querySelector(".utilBox#analyze");
       analyzeBox.style.backgroundColor = "#000078";
       var analyzeLink = document.getElementById('analyzeLink');
-      analyzeLink.onclick = function() {
-        chrome.tabs.create({url: "analyze.html"}, function(tab){
-          chrome.tabs.sendMessage(tab.id, {greeting: "hello"}, function(){});
-        });
-      }
+      analyzeLink.href = "analyze.html";
       analyzeLink.style.pointerEvents="auto";
-    } else if (request.type == "message") {
+    } else if (message.type == "message") {
       // MESSAGE: There is a message to show
       document.getElementById('message').innerHTML = request.message;
     }
