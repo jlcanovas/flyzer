@@ -1,5 +1,5 @@
 chrome.runtime.sendMessage({type : "request", need : "graph"}, function callback(message) {
-  //drawGraph(message.graph.nodes, message.graph.edges);
+  update(message.graph);
 });
 
 function update(graph) {
@@ -115,6 +115,7 @@ function updateParticipantsTable(nodes) {
       .data(nodes)
       .enter().append("tr");
 
+  var col0 = tr.append("td").html("<input type=\"checkbox\"></input>").style("width", "22px");
   var col1 = tr.append("td").text(d => d.name).style("width", "550px");
   var col2 = tr.append("td").text(d => d.outDegree).style("width", "100px").style("text-align", "center");
   var col3 = tr.append("td").text(d => d.inDegree).style("width", "100px").style("text-align", "center");
@@ -142,4 +143,4 @@ var edges = [
 ];
 
 var graph = { nodes : nodes, edges : edges};
-update(graph);
+//update(graph);
