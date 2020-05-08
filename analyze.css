@@ -1,0 +1,19 @@
+
+.header {
+    background-color: #000078;
+    color: white;
+}
+.header h1 {
+    margin: 0px;
+    padding: 10px;
+}
+.container {
+    margin: auto;
+    display: block;
+    width: 1140px;
+}
+.graph {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    clear : both;
+}
