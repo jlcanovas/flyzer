@@ -4,7 +4,7 @@
     color: white;
 }
 .header h1 {
-    margin: 0px;
+    margin: 0px 0px 10px 0px;
     padding: 10px;
 }
 .container {
@@ -16,4 +16,22 @@
     border: 1px solid black;
     margin-bottom: 10px;
     clear : both;
+}
+.participantsTable table {
+    border: 1px solid black;
+    width: 100%;
+}
+.participantsTable tbody {
+    display: block;
+    overflow: auto;
+    height: 120px;
+    width: 1140px;
+}
+.participantsTable tbody tr:nth-child(even) {
+    background: #CCC
+}
+.participantsTable thead tr {
+    display: block;
+    background-color: #000078;
+    color: white;
 }

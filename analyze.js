@@ -4,6 +4,7 @@ chrome.runtime.sendMessage({type : "request", need : "graph"}, function callback
 
 function update(graph) {
   drawGraph(graph.nodes, graph.edges);
+  updateParticipantsTable(graph.nodes);
 }
 
 // GRAPH DRAWING
@@ -106,13 +107,29 @@ function drawGraph(nodes, edges) {
   }
 }
 
+
+// UPDATING THE NODES TABLE (PARTICIPANTS TABLE)
+// We rely on D3 function to make it easier
+function updateParticipantsTable(nodes) {
+  var tr = d3.select(".participantsTable").select("tbody").selectAll("tr")
+      .data(nodes)
+      .enter().append("tr");
+
+  var col1 = tr.append("td").text(d => d.name).style("width", "550px");
+  var col2 = tr.append("td").text(d => d.outDegree).style("width", "100px").style("text-align", "center");
+  var col3 = tr.append("td").text(d => d.inDegree).style("width", "100px").style("text-align", "center");
+  var col4 = tr.append("td").text(d => d.responseTimeMin).style("width", "100px").style("text-align", "center");
+  var col4 = tr.append("td").text(d => d.responseTimeMax).style("width", "100px").style("text-align", "center");
+  var col4 = tr.append("td").text(d => d.responseTimeMean).style("width", "100px").style("text-align", "center");
+}
+
 // JUST FOR DEBUG
 var nodes = [
-  { "id" : "A", "name" : "A", "size" : 2},
-  { "id" : "B", "name" : "B", "size" : 2},
-  { "id" : "C", "name" : "C", "size" : 3},
-  { "id" : "D", "name" : "D", "size" : 4},
-  { "id" : "E", "name" : "E", "size" : 2}
+  { "id" : "A", "name" : "A", "size" : 2, "inDegree" : 1, "outDegree" : 4, "responseTimeMin" : "01d 03h 03m 00s", "responseTimeMax" : "02d 03h 03m 00s", "responseTimeMean" : "0d 08h 23m 12s"},
+  { "id" : "B", "name" : "B", "size" : 2, "inDegree" : 4, "outDegree" : 8, "responseTimeMin" : "01d 07h 03m 00s", "responseTimeMax" : "05d 03h 03m 00s", "responseTimeMean" : "0d 07h 33m 33s"},
+  { "id" : "C", "name" : "C", "size" : 3, "inDegree" : 6, "outDegree" : 2, "responseTimeMin" : "00d 12h 23m 23s", "responseTimeMax" : "03d 04h 06m 00s", "responseTimeMean" : "0d 02h 43m 32s"},
+  { "id" : "D", "name" : "D", "size" : 4, "inDegree" : 2, "outDegree" : 6, "responseTimeMin" : "00d 21h 04m 23s", "responseTimeMax" : "02d 03h 03m 00s", "responseTimeMean" : "0d 04h 02m 16s"},
+  { "id" : "E", "name" : "E", "size" : 2, "inDegree" : 2, "outDegree" : 3, "responseTimeMin" : "00d 04h 05m 31s", "responseTimeMax" : "07d 00h 13m 00s", "responseTimeMean" : "0d 04h 13m 23s"}
 ];
 
 var edges = [

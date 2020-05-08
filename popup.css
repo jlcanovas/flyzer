@@ -6,7 +6,7 @@
 
 body {
   margin: 0px;
-  width: 800px;
+  width: 550px;
 }    
 button {
   height: 30px;
@@ -57,7 +57,7 @@ button {
   color: white;
 }
 .results .nodesBox {
-  width: 225px;
+  width: 100px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;
@@ -65,7 +65,7 @@ button {
   margin-right: 10px;
 }
 .results .edgesBox {
-  width: 225px;
+  width: 100px;
   height: 40px;
   padding: 7px;
   margin-top: 10px;

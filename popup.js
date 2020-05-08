@@ -165,15 +165,6 @@ function drawGraph(nodes, edges) {
     document.getElementById('downloadLinkGEXF').style.pointerEvents = "auto";
     generateGEXF(data);
   }
-
-  // Updating the table
-  var tr = d3.select("#reportTable").select("tbody").selectAll("tr")
-    .data(data.nodes)
-    .enter().append("tr");
-
-  var col1 = tr.append("td").text(d => d.name).style("width", "550px");
-  var col2 = tr.append("td").text(d => d.outDegree).style("width", "100px").style("text-align", "center");
-  var col3 = tr.append("td").text(d => d.inDegree).style("width", "100px").style("text-align", "center");
 }
 
 function generateSVG() {
