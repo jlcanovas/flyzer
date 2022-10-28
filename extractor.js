@@ -84,6 +84,7 @@ function callback (mutations) {
         if(!next.parentNode.classList.contains("disabled"))
           next.click();  // if so, we click on the next button
         else {
+          this.disconnect();  // We first stop listening changes (this function is part of MutationObserver)
           showResults(); // if not, we show results
         }
       }
@@ -97,7 +98,7 @@ function showResults() {
   // console.log(authors);
   // console.log(interactions);
   // We first stop listening changes
-  observer.disconnect();
+  // observer.disconnect();
   // Converting authors to D3 format
   nodes = [];
   for(author in authorOutMessages) {
@@ -110,6 +111,7 @@ function showResults() {
 // Main execution of the extractor
 // We first look for the message tree of the website
 panel = document.querySelectorAll("#msgs-tree");
+console.log("dentro");
 //console.log(panel);
 if(panel == undefined || panel.length == 0) {
   // If we don't find the message tree, we assume we are NOT in a forum-like UOC website
