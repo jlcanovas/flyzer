@@ -95,10 +95,6 @@ function callback (mutations) {
 // Once the forum has been analyzed, we have to show the results
 // We notify the plugin via messaging
 function showResults() {
-  // console.log(authors);
-  // console.log(interactions);
-  // We first stop listening changes
-  // observer.disconnect();
   // Converting authors to D3 format
   nodes = [];
   for(author in authorOutMessages) {
@@ -111,11 +107,11 @@ function showResults() {
 // Main execution of the extractor
 // We first look for the message tree of the website
 panel = document.querySelectorAll("#msgs-tree");
-//console.log(panel);
+console.log(panel);
 if(panel == undefined || panel.length == 0) {
   // If we don't find the message tree, we assume we are NOT in a forum-like UOC website
   // We notify via message and stop
-  // chrome.runtime.sendMessage({ type: "message", message : "No messages detected, are you in a forum?"});
+  chrome.runtime.sendMessage({ type: "message", message : "No messages detected, are you in a forum?"});
 } else {
   // We found the message tree and start the extraction process
   // We first register a listener/observer for changes in the message tree

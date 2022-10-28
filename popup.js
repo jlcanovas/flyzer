@@ -7,19 +7,14 @@ async function getCurrentTab() {
   return tab;
 }
 
-async function onclickListener() {
-  let tab = await getCurrentTab();
-  console.log(tab);
-  chrome.scripting.executeScript({ 
-    target: {tabId: tab.id, allFrames: true},
-    files : ['extractor.js'] // We inject the content-script
-  }); 
-}
-
 // We first add the listener to the main button of the plugin popup
 let extractGraph = document.getElementById('extractGraph');
 extractGraph.onclick = async()=> {
-  await onclickListener();
+  let tab = await getCurrentTab();
+  chrome.scripting.executeScript({ 
+    target: {tabId: tab.id},
+    files : ['extractor.js'] // We inject the content-script
+  }); 
 };
 
 // MESSAGE MANAGEMENT
