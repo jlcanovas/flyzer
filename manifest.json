@@ -1,13 +1,13 @@
 {
   "name": "Flyzer - Forum analyzer",
-  "version": "0.4",
+  "version": "0.5",
   "description": "Extract a collaboration graph from Forums",
-  "permissions": ["activeTab", "declarativeContent"],
+  "permissions": ["activeTab", "declarativeContent", "scripting"],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js",
+    "type" : "module" 
   },
-  "page_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/cg16.png",
@@ -22,6 +22,9 @@
     "48": "images/cg48.png",
     "128": "images/cg128.png"
   },
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self'; object-src 'self'"
+  "manifest_version": 3,
+  "content_security_policy": {
+    "script-src": ["'self'"],
+    "object-src": ["'self'"]
+  }
 }
